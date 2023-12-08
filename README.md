@@ -36,4 +36,3 @@ php artisan migrate
 php artisan serve
 ```
 9. Go to your C:\Windows\system32\drivers\etc\hosts and manully create the name of the domain you want so that you can view the new domain on your system.
-# wildcarddomain
