@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::domain('{domain}.wildcard.test')->group(function () {
-    Route::get('/domain', [ProgramController::class, 'index'])->name('program');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/create', [ProgramController::class, 'createForm'])->name('create.form');
-Route::post('/create', [ProgramController::class, 'createProgram'])->name('create.program');
-
-
+require __DIR__.'/auth.php';
